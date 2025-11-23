@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>🎉 Thiệp Sinh Nhật Đặc Biệt 🎂</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            overflow: hidden;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Floating icons decoration */
+        .floating-icon {
+            position: fixed;
+            font-size: 2rem;
+            opacity: 0.6;
+            pointer-events: none;
+            animation: float 6s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .card {
+            position: absolute;
+            width: 380px;
+            height: 240px;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: rotate(45deg);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        .card.moving {
+            transition: all 0.6s ease-out;
+        }
+
+        .card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-inner {
+            position: relative;
+            height: 100%;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .card-icon {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            animation: bounce 2s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Mystery card style */
+        .card.mystery .card-icon {
+            font-size: 4rem;
+            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.6));
+        }
+
+        .card.mystery .card-title {
+            font-size: 1.8rem;
+            color: #5a3a1a;
+            -webkit-text-fill-color: #5a3a1a;
+        }
+
+        .card.mystery .card-subtitle {
+            color: #8b6914;
+            font-style: italic;
+        }
+
+        /* Reveal animation */
+        .reveal-text {
+            font-size: 3rem;
+            font-weight: 900;
+            text-align: center;
+            background: linear-gradient(45deg, #ff3b6d, #ffd700, #ff8c42, #ff3b6d);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: revealGlow 2s ease-in-out;
+            margin-bottom: 20px;
+        }
+
+        @keyframes revealGlow {
+            0% {
+                opacity: 0;
+                transform: scale(0.5) rotateY(90deg);
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotateY(0deg);
+                background-position: 0% 50%;
+            }
+        }
+
+        .reveal-message {
+            font-size: 1.2rem;
+            color: #555;
+            line-height: 1.8;
+            animation: fadeInUp 1.5s ease 0.5s both;
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card-title {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #ff3b6d, #ff8c42, #ff3b6d);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+            animation: gradientText 3s ease infinite;
+        }
+
+        @keyframes gradientText {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .card-subtitle {
+            font-size: 1rem;
+            color: #7a4a2f;
+            font-weight: 500;
+        }
+
+        .hint {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.85rem;
+            color: rgba(0, 0, 0, 0.6);
+            background: rgba(255, 255, 255, 0.7);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .click-counter {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: rgba(255, 59, 109, 0.9);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .message-overlay {
+            position: fixed;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .message-overlay.active {
+            display: flex;
+        }
+
+        .message-box {
+            max-width: 550px;
+            padding: 40px 35px;
+            background: linear-gradient(135deg, #fffdf8 0%, #ffe9e9 100%);
+            border-radius: 25px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            position: relative;
+            border: 4px solid rgba(255, 255, 255, 0.8);
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .message-box h2 {
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, #ff5b7f, #ff8c42);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+
+        .message-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #333;
+            white-space: pre-wrap;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .close-btn {
+            padding: 12px 30px;
+            border-radius: 30px;
+            border: none;
+            background: linear-gradient(135deg, #ff5b7f, #ff8c42);
+            color: white;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(255, 91, 127, 0.4);
+        }
+
+        .close-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(255, 91, 127, 0.6);
+        }
+
+        /* Confetti styles - Square and Rectangle */
+        .confetti {
+            position: fixed;
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        .confetti-square {
+            width: 10px;
+            height: 10px;
+            animation: confetti-fall-square 4s linear forwards;
+        }
+
+        .confetti-rect {
+            width: 6px;
+            height: 16px;
+            border-radius: 2px;
+            animation: confetti-fall-rect 5s linear forwards;
+        }
+
+        @keyframes confetti-fall-square {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(720deg);
+                opacity: 0.7;
+            }
+        }
+
+        @keyframes confetti-fall-rect {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(1080deg);
+                opacity: 0.7;
+            }
+        }
+
+        /* Ribbon confetti - long curly */
+        .confetti-ribbon {
+            width: 8px;
+            height: 40px;
+            border-radius: 4px;
+            animation: confetti-fall-ribbon 6s linear forwards;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes confetti-fall-ribbon {
+            0% {
+                transform: translateY(-10vh) rotate(0deg) scaleY(1);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(50vh) rotate(540deg) scaleY(1.3);
+            }
+            100% {
+                transform: translateY(110vh) rotate(1440deg) scaleY(0.8);
+                opacity: 0.6;
+            }
+        }
+
+        /* Firework burst */
+        .firework {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 75;
+            animation: firework-burst 1.2s ease-out forwards;
+        }
+
+        @keyframes firework-burst {
+            0% {
+                opacity: 1;
+                transform: scale(0.3);
+                box-shadow: 0 0 0 0 currentColor;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: scale(15);
+                box-shadow: 0 0 60px 20px transparent;
+            }
+        }
+
+        /* Particle burst */
+        .particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 60;
+        }
+
+        /* Responsive cho mobile */
+        @media (max-width: 768px) {
+            .floating-icon {
+                font-size: 1.5rem;
+            }
+
+            .card {
+                width: 90vw;
+                max-width: 340px;
+                height: 200px;
+            }
+
+            .card-icon {
+                font-size: 2.5rem;
+                margin-bottom: 10px;
+            }
+
+            .card-title {
+                font-size: 1.5rem;
+                margin-bottom: 8px;
+            }
+
+            .card-subtitle {
+                font-size: 0.9rem;
+            }
+
+            .hint {
+                font-size: 0.75rem;
+                padding: 4px 12px;
+                bottom: 10px;
+            }
+
+            .message-box {
+                max-width: 90vw;
+                padding: 30px 25px;
+            }
+
+            .message-box h2 {
+                font-size: 1.8rem;
+                margin-bottom: 15px;
+            }
+
+            .message-text {
+                font-size: 1rem;
+                line-height: 1.6;
+                margin-bottom: 20px;
+            }
+
+            .close-btn {
+                padding: 10px 25px;
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .floating-icon {
+                font-size: 1.2rem;
+            }
+
+            .card {
+                width: 85vw;
+                height: 180px;
+            }
+
+            .card-icon {
+                font-size: 2rem;
+            }
+
+            .card-title {
+                font-size: 1.3rem;
+            }
+
+            .card-subtitle {
+                font-size: 0.85rem;
+            }
+
+            .hint {
+                font-size: 0.7rem;
+            }
+
+            .message-box h2 {
+                font-size: 1.5rem;
+            }
+
+            .message-text {
+                font-size: 0.95rem;
+            }
+        }
+
+        /* Tối ưu cho touch devices */
+        @media (hover: none) and (pointer: coarse) {
+            .card:hover {
+                transform: none;
+            }
+
+            .close-btn:hover {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Floating decorative icons -->
+    <div class="floating-icon" style="top: 10%; left: 10%; animation-delay: 0s;">🎈</div>
+    <div class="floating-icon" style="top: 20%; right: 15%; animation-delay: 1s;">🎁</div>
+    <div class="floating-icon" style="bottom: 15%; left: 20%; animation-delay: 2s;">🎂</div>
+    <div class="floating-icon" style="bottom: 25%; right: 10%; animation-delay: 1.5s;">⭐</div>
+    <div class="floating-icon" style="top: 50%; left: 5%; animation-delay: 0.5s;">🎊</div>
+    <div class="floating-icon" style="top: 60%; right: 8%; animation-delay: 2.5s;">🎉</div>
+
+    <!-- Birthday card -->
+    <div class="card mystery" id="birthdayCard">
+        <div class="card-inner">
+            <div class="card-icon">🎁✨</div>
+            <div class="card-title">Thiệp Bí Ẩn</div>
+            <div class="card-subtitle">Có gì bên trong nhỉ?</div>
+            <div class="hint" id="hintText">Click để khám phá 🔮</div>
+        </div>
+    </div>
+
+    <!-- Message popup -->
+    <div class="message-overlay" id="messageOverlay">
+        <div class="message-box">
+            <div class="reveal-text">🎉 Happy Birthday! 🎂</div>
+            <div class="reveal-message" id="messageText"></div>
+            <button class="close-btn" id="closeBtn">Đóng Thiệp ✨</button>
+        </div>
+    </div>
+
+    <script>
+        // ========== CÀI ĐẶT LỜI CHÚC ==========
+        const customMessage = `
+🌟 Chúc mừng sinh nhật bạn! 🌟
+
+Chúc bạn luôn tràn đầy năng lượng,
+mạnh khỏe, hạnh phúc và thành công rực rỡ!
+
+Mong rằng tuổi mới sẽ mang đến cho bạn
+vô vàn niềm vui, tiếng cười và những điều kỳ diệu nhất!
+
+Hãy tỏa sáng như ngôi sao và chinh phục mọi ước mơ! ⭐
+
+🎁 Hôm nay là ngày đặc biệt của bạn - hãy tận hưởng từng khoảnh khắc! 🥳
+        `.trim();
+
+        // ========== BIẾN QUẢN LÝ ==========
+        const card = document.getElementById('birthdayCard');
+        const overlay = document.getElementById('messageOverlay');
+        const messageText = document.getElementById('messageText');
+        const closeBtn = document.getElementById('closeBtn');
+        const hintText = document.getElementById('hintText');
+
+        let clickCount = 0;
+        let effectInterval = null;
+        let isMoving = false;
+
+        // ========== SỰ KIỆN CLICK/TOUCH THIỆP ==========
+        function handleCardInteraction(e) {
+            e.preventDefault();
+            
+            if (isMoving) return;
+            
+            clickCount++;
+
+            if (clickCount < 3) {
+                // Lần click 1 và 2: Di chuyển thiệp random
+                moveCardRandomly();
+                if (clickCount === 1) {
+                    hintText.textContent = '😄 Ơ, bí ẩn trốn rồi! Thử lại xem! 🎪';
+                } else if (clickCount === 2) {
+                    hintText.textContent = '😆 Sắp mở khóa rồi! Click lần nữa! 🔓';
+                }
+            } else {
+                // Lần click thứ 3: Mở thiệp
+                messageText.textContent = customMessage;
+                overlay.classList.add('active');
+                startEffects();
+                clickCount = 0;
+                hintText.textContent = 'Click để khám phá 🔮';
+            }
+        }
+
+        // Hỗ trợ cả click (desktop) và touch (mobile)
+        card.addEventListener('click', handleCardInteraction);
+        card.addEventListener('touchend', handleCardInteraction);
+
+        closeBtn.addEventListener('click', () => {
+            overlay.classList.remove('active');
+            stopEffects();
+        });
+
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                overlay.classList.remove('active');
+                stopEffects();
+            }
+        });
+
+        // ========== DI CHUYỂN THIỆP RANDOM ==========
+        function moveCardRandomly() {
+            if (isMoving) return;
+            isMoving = true;
+
+            const padding = window.innerWidth < 768 ? 10 : 40;
+            const maxX = window.innerWidth - card.offsetWidth - padding;
+            const maxY = window.innerHeight - card.offsetHeight - padding;
+            
+            const randomX = Math.random() * maxX + (padding / 2);
+            const randomY = Math.random() * maxY + (padding / 2);
+
+            card.classList.add('moving');
+            card.style.left = randomX + 'px';
+            card.style.top = randomY + 'px';
+
+            // Hiệu ứng nhỏ khi di chuyển
+            createMiniConfettiBurst(
+                parseFloat(card.style.left) + card.offsetWidth / 2,
+                parseFloat(card.style.top) + card.offsetHeight / 2
+            );
+
+            setTimeout(() => {
+                card.classList.remove('moving');
+                isMoving = false;
+            }, 600);
+        }
+
+        // ========== HIỆU ỨNG PHÁO HOA & CONFETTI ==========
+        function randomColor() {
+            const colors = [
+                '#ff5b7f', '#ffd166', '#06d6a0', '#4cc9f0', 
+                '#f72585', '#7209b7', '#ff8c42', '#00f2fe'
+            ];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+
+        function createConfettiSquare() {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti', 'confetti-square');
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.backgroundColor = randomColor();
+            confetti.style.animationDelay = Math.random() * 0.5 + 's';
+            confetti.style.animationDuration = (3 + Math.random() * 2) + 's';
+            document.body.appendChild(confetti);
+
+            setTimeout(() => confetti.remove(), 6000);
+        }
+
+        function createConfettiRect() {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti', 'confetti-rect');
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.backgroundColor = randomColor();
+            confetti.style.animationDelay = Math.random() * 0.5 + 's';
+            confetti.style.animationDuration = (4 + Math.random() * 2) + 's';
+            document.body.appendChild(confetti);
+
+            setTimeout(() => confetti.remove(), 7000);
+        }
+
+        function createConfettiRibbon() {
+            const ribbon = document.createElement('div');
+            ribbon.classList.add('confetti', 'confetti-ribbon');
+            ribbon.style.left = Math.random() * 100 + 'vw';
+            ribbon.style.backgroundColor = randomColor();
+            ribbon.style.animationDelay = Math.random() * 0.5 + 's';
+            ribbon.style.animationDuration = (5 + Math.random() * 2) + 's';
+            document.body.appendChild(ribbon);
+
+            setTimeout(() => ribbon.remove(), 8000);
+        }
+
+        function createFirework() {
+            const fw = document.createElement('div');
+            fw.classList.add('firework');
+            
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * (window.innerHeight * 0.7);
+            
+            fw.style.left = x + 'px';
+            fw.style.top = y + 'px';
+            fw.style.color = randomColor();
+            
+            document.body.appendChild(fw);
+
+            // Tạo particles xung quanh
+            for (let i = 0; i < 12; i++) {
+                createParticle(x, y);
+            }
+
+            setTimeout(() => fw.remove(), 1500);
+        }
+
+        function createParticle(x, y) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            const angle = Math.random() * Math.PI * 2;
+            const velocity = 50 + Math.random() * 100;
+            const dx = Math.cos(angle) * velocity;
+            const dy = Math.sin(angle) * velocity;
+            
+            particle.style.left = x + 'px';
+            particle.style.top = y + 'px';
+            particle.style.backgroundColor = randomColor();
+            
+            document.body.appendChild(particle);
+
+            let opacity = 1;
+            let currentX = x;
+            let currentY = y;
+            let velocityY = dy;
+
+            const animateParticle = () => {
+                currentX += dx * 0.05;
+                currentY += velocityY * 0.05;
+                velocityY += 2; // Gravity
+                opacity -= 0.02;
+
+                particle.style.left = currentX + 'px';
+                particle.style.top = currentY + 'px';
+                particle.style.opacity = opacity;
+
+                if (opacity > 0 && currentY < window.innerHeight) {
+                    requestAnimationFrame(animateParticle);
+                } else {
+                    particle.remove();
+                }
+            };
+
+            requestAnimationFrame(animateParticle);
+        }
+
+        function createMiniConfettiBurst(x, y) {
+            for (let i = 0; i < 8; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti', 'confetti-square');
+                confetti.style.left = x + 'px';
+                confetti.style.top = y + 'px';
+                confetti.style.backgroundColor = randomColor();
+                confetti.style.animationDuration = '2s';
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 2500);
+            }
+        }
+
+        function startEffects() {
+            const isMobile = window.innerWidth < 768;
+            const burstCount = isMobile ? 25 : 40;
+            const loopCount = isMobile ? 5 : 8;
+
+            // Burst ban đầu
+            for (let i = 0; i < burstCount; i++) {
+                setTimeout(() => {
+                    createConfettiSquare();
+                    createConfettiRect();
+                    if (i % 3 === 0) createConfettiRibbon();
+                    if (i % 6 === 0) createFirework();
+                }, i * 60);
+            }
+
+            // Lặp lại liên tục
+            effectInterval = setInterval(() => {
+                for (let i = 0; i < loopCount; i++) {
+                    createConfettiSquare();
+                    createConfettiRect();
+                }
+                createConfettiRibbon();
+                if (!isMobile) createConfettiRibbon();
+                createFirework();
+            }, 1200);
+        }
+
+        function stopEffects() {
+            if (effectInterval) {
+                clearInterval(effectInterval);
+                effectInterval = null;
+            }
+        }
+    </script>
+</body>
+
+</html>
